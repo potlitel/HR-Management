@@ -40,12 +40,18 @@ namespace HR_Management_WebAPI
                 {
                     Title = $"HR-Management {groupName}",
                     Version = groupName,
-                    Description = "Human Resources Management API",
+                    Description = "Simple sample web API project that simulates a HR Management System Application.",
+                    TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {
-                        Name = "Company Name",
-                        Email = string.Empty,
+                        Name = "HR-Management",
+                        Email = "potlitel@gmail.com",
                         Url = new Uri("https://github.com/potlitel"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Use under OpenApiLicense",
+                        Url = new Uri("https://example.com/license"),
                     }
                 });
             });
@@ -75,6 +81,12 @@ namespace HR_Management_WebAPI
             {
                 endpoints.MapControllers();
             });
+
+            //app.Run(context =>
+            //{
+            //    context.Response.Redirect("/swagger/index");
+            //    return Task.CompletedTask;
+            //});
         }
     }
 }
