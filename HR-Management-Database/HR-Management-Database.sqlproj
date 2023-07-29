@@ -58,6 +58,7 @@
     <Folder Include="Properties" />
     <Folder Include="Tables" />
     <Folder Include="StoresProcedures" />
+    <Folder Include="Seed-Data" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Employees.sql" />
@@ -86,5 +87,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="HR-Management-Database.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Seed-Data\Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>
