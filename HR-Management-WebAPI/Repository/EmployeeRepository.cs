@@ -20,9 +20,54 @@ namespace HR_Management_WebAPI.Repository
         {
             _context = context;
         }
-        public Task<CustomResponse> CreateEmployee(CreateRequest role)
+        public async Task<CustomResponse> CreateEmployee(CreateEmployeeRequest employee)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var query = "Usp_HR_AddEmployee";
+                using (var connection = _context.CreateConnection())
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("employee_name", employee.employee_name.ToString(), DbType.String);
+                    parameters.Add("lastName", employee.lastName.ToString(), DbType.String);
+                    parameters.Add("email", employee.email.ToString(), DbType.String);
+                    parameters.Add("personalAddress", employee.personalAddress.ToString(), DbType.String);
+                    parameters.Add("phone", employee.phone.ToString(), DbType.String);
+                    parameters.Add("workingStartingDate", employee.workingStartingDate.ToString(), DbType.String);
+                    parameters.Add("startingSalary", employee.startingSalary.ToString(), DbType.String);
+                    parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
+                    parameters.Add("prp_id", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                    await connection.ExecuteAsync(query, parameters, commandType: CommandType.StoredProcedure);
+
+                    var message = parameters.Get<string>("prp_mensaje");
+                    var id = parameters.Get<int?>("prp_id");
+
+
+                    var createdCompany = new Employee
+                    {
+                        employee_id = (int)id,
+                        employee_name = employee.employee_name,
+                        lastName = employee.lastName,
+                        email = employee.email,
+                        personalAddress = employee.personalAddress,
+                        phone = employee.phone,
+                        workingStartingDate = employee.workingStartingDate,
+                        startingSalary = employee.startingSalary,
+                    };
+
+                    return new CustomResponse
+                    {
+                        StatusCode = HttpStatusCode.OK,
+                        Message = message,
+                        Data = createdCompany
+                    };
+                }
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(exp.Message, exp);
+            }
         }
 
         public async Task<CustomResponse> DeleteEmployee(int employee_id)
@@ -81,7 +126,7 @@ namespace HR_Management_WebAPI.Repository
             }
         }
 
-        public Task<CustomResponse> UpdateEmployee(int role_id, CreateRequest role)
+        public Task<CustomResponse> UpdateEmployee(int role_id, CreateEmployeeRequest role)
         {
             throw new NotImplementedException();
         }

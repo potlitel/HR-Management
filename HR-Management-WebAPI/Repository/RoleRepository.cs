@@ -26,10 +26,6 @@ namespace HR_Management_WebAPI.Repository
 
         public async Task<CustomResponse> CreateRole(CreateRequest role)
         {
-            //// validate
-            //if (await _userRepository.GetByEmail(model.Email!) != null)
-            //    throw new AppException("User with the email '" + model.Email + "' already exists");
-            //await GetRoleByName(role.rol_name);
             try
             {
                 var query = "Usp_HR_AddRol";
