@@ -11,12 +11,35 @@ HR-Management is a simple sample web API project that simulates a HR Management 
 - What problem does it solve?
 - What did you learn?
 
+### Built With
+
+- [.NET Core 3.1](https://dotnet.microsoft.com/en-us/download/dotnet/3.1)
+- [Dapper](https://www.nuget.org/packages/Dapper/)
+- [Microsoft.Data.SqlClient](https://www.nuget.org/packages/Microsoft.Data.SqlClient/5.1.1)
+
 ## Table of Contents:
 
+- [Prerequisites](#Prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Credits](#credits)
 - [License](#license)
+
+### Prerequisites
+
+1. First you need to check if you have installed the .NET Core 3.1 SDK with the following .NET CLI (Command-Line Interface) command:
+
+   ```sh
+   dotnet --version
+   ```
+
+   If your version is not 3.1, [download the .NET Core 3.1 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/3.1) and install it on your machine.
+
+2. Install Visual Studio Code editor (also know as VSCode).
+
+3. Once Visual Studio Code is open, install the REST Client extension.
+
+4. Finally, install the C# extension to get IntelliSense features in VSCode.
 
 ## Installation
 
