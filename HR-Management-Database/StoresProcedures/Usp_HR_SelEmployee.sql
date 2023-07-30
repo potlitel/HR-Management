@@ -15,7 +15,7 @@ AS
 BEGIN
 	BEGIN TRY
 		SELECT Employees.employee_id, Employees.employee_name, Employees.lastName, 
-		Employees.email, Employees.personalAddress, Employees.phone, Employees.workingStartingDate, Employees.startingSalary
+		RTRIM(Employees.email) as email, RTRIM(Employees.personalAddress) as personalAddress, Employees.phone, Employees.workingStartingDate, Employees.startingSalary
 		FROM dbo.Employees
 	END TRY
 	BEGIN CATCH

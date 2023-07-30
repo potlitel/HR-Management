@@ -34,6 +34,7 @@ namespace HR_Management_WebAPI
         {
             services.AddSingleton<DapperContext>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddControllers();
             AddSwagger(services);
         }
