@@ -9,6 +9,16 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+
+--﻿PRINT 'We delete previously existing data'
+--GO
+
+DELETE FROM dbo.Roles
+GO
+
+--﻿PRINT 'Inserting Application.People'
+--GO
+
 INSERT INTO Roles(rol_name) VALUES ('Worker')
 INSERT INTO Roles(rol_name) VALUES ('Specialist')
 INSERT INTO Roles(rol_name) VALUES ('Manager')
