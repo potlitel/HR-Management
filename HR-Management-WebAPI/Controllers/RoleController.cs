@@ -57,5 +57,27 @@ namespace HR_Management_WebAPI.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        /// <summary>
+        /// Api Get method to delete a role.
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete("delete/{role_id}")]
+        public async Task<IActionResult> DeleteRol(int role_id)
+        {
+            try
+            {
+                var roleFound = await _rolesRepo.GetRoleById(role_id);
+                if (roleFound == null)
+                    return NotFound("No role found matching the supplied identifier.");
+
+                CustomResponse model = await _rolesRepo.DeleteRole(role_id);
+                return Ok(new { message = model.Message });
+            }
+            catch (Exception ex)
+            {
+                //log error
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

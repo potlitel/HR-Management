@@ -26,6 +26,10 @@ namespace HR_Management_WebAPI.Repository
 
         public async Task<CustomResponse> CreateRole(CreateRequest role)
         {
+            //// validate
+            //if (await _userRepository.GetByEmail(model.Email!) != null)
+            //    throw new AppException("User with the email '" + model.Email + "' already exists");
+            //await GetRoleByName(role.rol_name);
             try
             {
                 var query = "Usp_HR_AddRol";
@@ -62,6 +66,60 @@ namespace HR_Management_WebAPI.Repository
             }
         }
 
+        public async Task<CustomResponse> DeleteRole(int rol_id)
+        {
+            try
+            {
+                var query = "Usp_HR_DelRol";
+                using (var connection = _context.CreateConnection())
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("role_id", rol_id, DbType.Int32);
+                    parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
+
+                    await connection.ExecuteAsync(query, parameters, commandType: CommandType.StoredProcedure);
+
+                    var message = parameters.Get<string>("prp_mensaje");
+
+                    return (new CustomResponse
+                    {
+                        StatusCode = HttpStatusCode.OK,
+                        Message = message,
+                    });
+                }
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(exp.Message, exp);
+            }
+        }
+
+        public async Task<Role> GetRoleById(int role_id)
+        {
+            var procedure = "Usp_HR_SelByIdRol";
+            using (var connection = _context.CreateConnection())
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("role_id", role_id, DbType.Int32);
+                parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
+                //return ((CreateRequest)await connection.QueryAsync<CreateRequest>(procedure, parameters, commandType: CommandType.StoredProcedure));
+                //return ((Role)await connection.QueryAsync<Role>(procedure, parameters, commandType: CommandType.StoredProcedure));
+                return await connection.QuerySingleOrDefaultAsync<Role>(procedure, parameters, null, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public async Task<CreateRequest> GetRoleByName(string name)
+        {
+            var procedure = "Usp_HR_SelByNameRol";
+            using (var connection = _context.CreateConnection())
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("rol_name", name.ToString(), DbType.String);
+                parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
+                return ((CreateRequest)await connection.QueryAsync<CreateRequest>(procedure, parameters, commandType: CommandType.StoredProcedure));
+            }
+        }
+
         public async Task<List<Role>> GetRoles()
         {
             var procedure = "Usp_HR_SelRol";
@@ -71,6 +129,11 @@ namespace HR_Management_WebAPI.Repository
                 parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
                 return (await connection.QueryAsync<Role>(procedure, parameters, commandType: CommandType.StoredProcedure)).ToList();
             }
+        }
+
+        public Task<CustomResponse> UpdateRole(CreateRequest role)
+        {
+            throw new NotImplementedException();
         }
     }
 }
