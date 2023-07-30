@@ -22,6 +22,7 @@ CREATE    PROCEDURE [dbo].[Usp_HR_UpdEmployee]
     @prp_mensaje varchar(250) output
 AS
 BEGIN
+    BEGIN TRANSACTION
     BEGIN TRY
         UPDATE Employees 
 		SET employee_name = @employee_name,

@@ -14,6 +14,7 @@ CREATE  PROCEDURE [dbo].[Usp_HR_SelByIdRol]
   @prp_mensaje varchar(250) output
 AS
 BEGIN
+    BEGIN TRANSACTION
 	BEGIN TRY
 		SELECT dbo.Roles.role_id, dbo.Roles.rol_name
 		FROM dbo.Roles

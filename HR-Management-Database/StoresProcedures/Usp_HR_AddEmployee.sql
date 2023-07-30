@@ -18,12 +18,15 @@ CREATE    PROCEDURE [dbo].[Usp_HR_AddEmployee]
 	@phone CHAR(7),
     @workingStartingDate datetime,
     @startingSalary money,
+    @prp_id INT output,
     @prp_mensaje varchar(250) output
 AS
 BEGIN
+    BEGIN TRANSACTION
     BEGIN TRY
         INSERT INTO Employees(employee_name, lastName, email, personalAddress, phone, workingStartingDate, startingSalary)
             VALUES (@employee_name, @lastName, @email,@personalAddress, @phone, @workingStartingDate, @startingSalary)
+            SET @prp_id = @@IDENTITY
             SET @prp_mensaje = 'The employee has been successfully added!'
     COMMIT
 	END TRY

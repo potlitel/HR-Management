@@ -15,6 +15,7 @@ CREATE    PROCEDURE [dbo].[Usp_HR_DelEmployee]
     @prp_mensaje varchar(250) output
 AS
 BEGIN
+    BEGIN TRANSACTION
     BEGIN TRY
         DELETE FROM dbo.Employees WHERE dbo.Employees.employee_id = @employee_id
             SET @prp_mensaje = 'The employee has been successfully deleted!'

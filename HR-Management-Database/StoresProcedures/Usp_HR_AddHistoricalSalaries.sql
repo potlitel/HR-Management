@@ -15,12 +15,15 @@ CREATE    PROCEDURE [dbo].[Usp_HR_AddHistoricalSalaries]
     @salaries_increases varchar (250), 
     @increases_period varchar (250),
     @increases_date datetime,
+    @prp_id INT output,
     @prp_mensaje varchar(250) output
 AS
 BEGIN
+    BEGIN TRANSACTION
     BEGIN TRY
         INSERT INTO HistoricalSalaries(employee_id, salaries_increases, increases_period, increases_date)
             VALUES (@user_id, @salaries_increases, @increases_period, @increases_date)
+            SET @prp_id = @@IDENTITY
             SET @prp_mensaje = 'The historical salaries has been successfully added!'
     COMMIT
 	END TRY

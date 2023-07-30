@@ -15,6 +15,7 @@ CREATE    PROCEDURE [dbo].[Usp_HR_DelUserRoles]
     @prp_mensaje varchar(250) output
 AS
 BEGIN
+    BEGIN TRANSACTION
     BEGIN TRY
         DELETE FROM dbo.User_Roles WHERE dbo.User_Roles.employee_id = @employee_id
             SET @prp_mensaje = 'User roles were successfully removed!'

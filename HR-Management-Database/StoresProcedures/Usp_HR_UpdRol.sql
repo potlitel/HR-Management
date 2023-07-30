@@ -16,6 +16,7 @@ CREATE    PROCEDURE [dbo].[Usp_HR_UpdRol]
     @prp_mensaje varchar(250) output
 AS
 BEGIN
+    BEGIN TRANSACTION
     BEGIN TRY
         UPDATE Roles 
 		SET rol_name = @rol_name
