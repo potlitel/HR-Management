@@ -1,5 +1,6 @@
 using HR_Management_WebAPI.Context;
 using HR_Management_WebAPI.Contracts;
+using HR_Management_WebAPI.Helpers;
 using HR_Management_WebAPI.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -85,6 +86,8 @@ namespace HR_Management_WebAPI
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

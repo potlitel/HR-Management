@@ -11,7 +11,7 @@ namespace HR_Management_WebAPI.Contracts
     public interface IRoleRepository
     {
         Task<List<Role>> GetRoles();
-        Task<CreateRequest> GetRoleByName(string name);
+        Task<Role> GetRoleByName(string name);
         Task<Role> GetRoleById(int role_id);
         Task<CustomResponse> CreateRole(CreateRequest role);
         Task<CustomResponse> UpdateRole(CreateRequest role);

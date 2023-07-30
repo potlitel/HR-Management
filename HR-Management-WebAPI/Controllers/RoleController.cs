@@ -48,6 +48,8 @@ namespace HR_Management_WebAPI.Controllers
         {
             try
             {
+                if (await _rolesRepo.GetRoleByName(role.rol_name!) != null)
+                    throw new ApplicationException("Role with the name '" + role.rol_name + "' already exists.");
                 CustomResponse model = await _rolesRepo.CreateRole(role);
                 return Ok(new { message = model.Message, data = model.Data });
             }

@@ -102,13 +102,11 @@ namespace HR_Management_WebAPI.Repository
                 var parameters = new DynamicParameters();
                 parameters.Add("role_id", role_id, DbType.Int32);
                 parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
-                //return ((CreateRequest)await connection.QueryAsync<CreateRequest>(procedure, parameters, commandType: CommandType.StoredProcedure));
-                //return ((Role)await connection.QueryAsync<Role>(procedure, parameters, commandType: CommandType.StoredProcedure));
                 return await connection.QuerySingleOrDefaultAsync<Role>(procedure, parameters, null, commandType: CommandType.StoredProcedure);
             }
         }
 
-        public async Task<CreateRequest> GetRoleByName(string name)
+        public async Task<Role> GetRoleByName(string name)
         {
             var procedure = "Usp_HR_SelByNameRol";
             using (var connection = _context.CreateConnection())
@@ -116,7 +114,7 @@ namespace HR_Management_WebAPI.Repository
                 var parameters = new DynamicParameters();
                 parameters.Add("rol_name", name.ToString(), DbType.String);
                 parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
-                return ((CreateRequest)await connection.QueryAsync<CreateRequest>(procedure, parameters, commandType: CommandType.StoredProcedure));
+                return await connection.QuerySingleOrDefaultAsync<Role>(procedure, parameters, null, commandType: CommandType.StoredProcedure);
             }
         }
 
