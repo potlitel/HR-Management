@@ -1,5 +1,6 @@
 ﻿using HR_Management_WebAPI.Contracts;
 using HR_Management_WebAPI.Helpers;
+using HR_Management_WebAPI.Models.Employees;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,26 @@ namespace HR_Management_WebAPI.Controllers
             {
                 var employees = await _employeesRepo.GetEmployees();
                 return Ok(employees);
+            }
+            catch (Exception ex)
+            {
+                //log error
+                return StatusCode(500, ex.Message);
+            }
+        }
+        /// <summary>
+        /// Api Get method to create a new employee.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> CreateEmployee(CreateEmployeeRequest role)
+        {
+            try
+            {
+                //if (await _rolesRepo.GetRoleByName(role.rol_name!) != null)
+                //    throw new ApplicationException("Role with the name '" + role.rol_name + "' already exists.");
+                CustomResponse model = await _employeesRepo.CreateEmployee(role);
+                return Ok(new { message = model.Message, data = model.Data });
             }
             catch (Exception ex)
             {

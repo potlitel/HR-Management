@@ -13,8 +13,8 @@ namespace HR_Management_WebAPI.Contracts
         Task<List<Employee>> GetEmployees();
         Task<Employee> GetEmployeeByName(string name);
         Task<Employee> GetEmployeeById(int employee_id);
-        Task<CustomResponse> CreateEmployee(CreateRequest employee);
-        Task<CustomResponse> UpdateEmployee(int employee_id, CreateRequest employee);
+        Task<CustomResponse> CreateEmployee(CreateEmployeeRequest employee);
+        Task<CustomResponse> UpdateEmployee(int employee_id, CreateEmployeeRequest employee);
         Task<CustomResponse> DeleteEmployee(int employee_id);
     }
 }
