@@ -52,12 +52,12 @@ namespace HR_Management_WebAPI.Repository
                         rol_name = role.rol_name
                     };
 
-                    return (new CustomResponse
+                    return new CustomResponse
                     {
                         StatusCode = HttpStatusCode.OK,
                         Message = message,
                         Data = createdCompany
-                    });
+                    };
                 }
             }
             catch (Exception exp)
@@ -129,9 +129,41 @@ namespace HR_Management_WebAPI.Repository
             }
         }
 
-        public Task<CustomResponse> UpdateRole(CreateRequest role)
+        public async Task<CustomResponse> UpdateRole(int role_id, CreateRequest role)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var query = "Usp_HR_UpdRol";
+                using (var connection = _context.CreateConnection())
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("role_id", role_id, DbType.Int32);
+                    parameters.Add("rol_name", role.rol_name.ToString(), DbType.String);
+                    parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
+
+                    await connection.ExecuteAsync(query, parameters, commandType: CommandType.StoredProcedure);
+
+                    var message = parameters.Get<string>("prp_mensaje");
+
+
+                    var createdCompany = new Role
+                    {
+                        role_id = role_id,
+                        rol_name = role.rol_name
+                    };
+
+                    return new CustomResponse
+                    {
+                        StatusCode = HttpStatusCode.OK,
+                        Message = message,
+                        Data = createdCompany
+                    };
+                }
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(exp.Message, exp);
+            }
         }
     }
 }

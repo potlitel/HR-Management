@@ -14,7 +14,7 @@ namespace HR_Management_WebAPI.Contracts
         Task<Role> GetRoleByName(string name);
         Task<Role> GetRoleById(int role_id);
         Task<CustomResponse> CreateRole(CreateRequest role);
-        Task<CustomResponse> UpdateRole(CreateRequest role);
+        Task<CustomResponse> UpdateRole(int role_id, CreateRequest role);
         Task<CustomResponse> DeleteRole(int role_id);
     }
 }
