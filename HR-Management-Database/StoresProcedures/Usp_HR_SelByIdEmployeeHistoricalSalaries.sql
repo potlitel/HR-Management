@@ -15,7 +15,6 @@ CREATE  PROCEDURE [dbo].[Usp_HR_SelEmployeeHistoricalSalaries]
 	@prp_mensaje varchar(250) output
 AS
 BEGIN
-    BEGIN TRANSACTION
 	BEGIN TRY
 		SELECT HistoricalSalaries.employee_id, HistoricalSalaries.salaries_increases, HistoricalSalaries.increases_period, 
 		HistoricalSalaries.increases_date

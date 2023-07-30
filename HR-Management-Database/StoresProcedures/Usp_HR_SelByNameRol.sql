@@ -5,19 +5,19 @@
 -- ===================================================================================== --
 --	Details			: Select the data of a determined role.
 --	Author.....		: Alain Jorge Acuña
---	Created at		: 29/07/2023
+--	Created at		: 30/07/2023
 --	Modified by  	: ...
 -- ===================================================================================== --
 */
-CREATE  PROCEDURE [dbo].[Usp_HR_SelByIdRol]
-  @role_id INT,
+CREATE  PROCEDURE [dbo].[Usp_HR_SelByNameRol]
+  @rol_name varchar(250),
   @prp_mensaje varchar(250) output
 AS
 BEGIN
 	BEGIN TRY
 		SELECT dbo.Roles.role_id, dbo.Roles.rol_name
 		FROM dbo.Roles
-		WHERE dbo.Roles.role_id = @role_id
+		WHERE dbo.Roles.rol_name = @rol_name
 	END TRY
 	BEGIN CATCH
 		set @prp_mensaje ='Could not get list of employees'				 

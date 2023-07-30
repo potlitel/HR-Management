@@ -15,7 +15,6 @@ CREATE  PROCEDURE [dbo].[Usp_HR_SelByIdEmployee]
 	@prp_mensaje varchar(250) output
 AS
 BEGIN
-    BEGIN TRANSACTION
 	BEGIN TRY
 		SELECT Employees.employee_id, Employees.employee_name, Employees.lastName, 
 		Employees.email, Employees.personalAddress, Employees.phone, Employees.workingStartingDate, Employees.startingSalary
