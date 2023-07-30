@@ -1,5 +1,6 @@
 ﻿using HR_Management_WebAPI.Contracts;
 using HR_Management_WebAPI.Entities;
+using HR_Management_WebAPI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -37,14 +38,18 @@ namespace HR_Management_WebAPI.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
+        /// <summary>
+        /// Api Get method to create a new role.
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> CreateCompany(Role company)
+        public async Task<IActionResult> CreateRol(Role role)
         {
             try
             {
-                var createdCompany = await _rolesRepo.CreateRole(company);
-                return CreatedAtRoute("CompanyById", new { id = createdCompany }, createdCompany);
+                CustomResponse model = await _rolesRepo.CreateRole(role);
+                //return CreatedAtRoute("CompanyById", new { id = createdCompany }, createdCompany);
+                return Ok(new { message = model.Message, data = model.Data });
             }
             catch (Exception ex)
             {
