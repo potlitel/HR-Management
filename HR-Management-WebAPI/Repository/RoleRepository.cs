@@ -3,6 +3,7 @@ using HR_Management_WebAPI.Context;
 using HR_Management_WebAPI.Contracts;
 using HR_Management_WebAPI.Entities;
 using HR_Management_WebAPI.Helpers;
+using HR_Management_WebAPI.Models.Roles;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System;
@@ -23,7 +24,7 @@ namespace HR_Management_WebAPI.Repository
             _context = context;
         }
 
-        public async Task<CustomResponse> CreateRole(Role role)
+        public async Task<CustomResponse> CreateRole(CreateRequest role)
         {
             try
             {
