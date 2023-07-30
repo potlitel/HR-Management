@@ -1,4 +1,6 @@
 using HR_Management_WebAPI.Context;
+using HR_Management_WebAPI.Contracts;
+using HR_Management_WebAPI.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,7 +12,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace HR_Management_WebAPI
@@ -28,6 +32,7 @@ namespace HR_Management_WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<DapperContext>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddControllers();
             AddSwagger(services);
         }
@@ -56,6 +61,8 @@ namespace HR_Management_WebAPI
                         Url = new Uri("https://example.com/license"),
                     }
                 });
+                // Set the comments path for the Swagger JSON and UI.
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
             });
         }
 

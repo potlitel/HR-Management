@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HR_Management_WebAPI.Entities
 {
-    public class Roles
+    public class Role
     {
         public int role_id { get; set; }
         public string rol_name { get; set; }

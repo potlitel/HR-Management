@@ -17,6 +17,6 @@ namespace HR_Management_WebAPI.Entities
 
         public float startingSalary { get; set; }
 
-        public List<Roles> Roles { get; set; } = new List<Roles>();
+        public List<Role> Roles { get; set; } = new List<Role>();
     }
 }

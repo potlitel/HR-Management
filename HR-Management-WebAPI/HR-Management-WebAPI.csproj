@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>HR_Management_WebAPI</RootNamespace>
     <UserSecretsId>40959b95-a750-47fd-90d8-87e565fc990f</UserSecretsId>
