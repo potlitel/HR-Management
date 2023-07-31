@@ -1,4 +1,5 @@
 ﻿using HR_Management_WebAPI.Contracts;
+using HR_Management_WebAPI.Entities;
 using HR_Management_WebAPI.Helpers;
 using HR_Management_WebAPI.Models.Employees;
 using Microsoft.AspNetCore.Mvc;
@@ -43,10 +44,12 @@ namespace HR_Management_WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> CreateEmployee(CreateEmployeeRequest employee)
+        public async Task<IActionResult> CreateEmployee(Employee employee)
         {
             try
             {
+                if (await _employeesRepo.GetEmployeeById(employee.employee_id!) != null)
+                    throw new ApplicationException("Employee with the identifier '" + employee.employee_id + "' already exists.");
                 if (await _employeesRepo.GetEmployeeByEmail(employee.email!) != null)
                     throw new ApplicationException("Employee with the email '" + employee.email + "' already exists.");
                 CustomResponse model = await _employeesRepo.CreateEmployee(employee);
@@ -63,7 +66,7 @@ namespace HR_Management_WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut("update/{employee_id}")]
-        public async Task<IActionResult> UpdateEmployee(int employee_id, CreateEmployeeRequest employee)
+        public async Task<IActionResult> UpdateEmployee(int employee_id, Employee employee)
         {
             try
             {

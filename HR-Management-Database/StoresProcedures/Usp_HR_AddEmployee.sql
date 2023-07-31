@@ -11,6 +11,7 @@
 */
 CREATE    PROCEDURE [dbo].[Usp_HR_AddEmployee]
     -- Add the parameters for the stored procedure here
+    @employee_id int,
 	@employee_name varchar(max),
 	@lastName varchar(max),
 	@email varchar(max),
@@ -24,9 +25,10 @@ AS
 BEGIN
     BEGIN TRANSACTION
     BEGIN TRY
-        INSERT INTO Employees(employee_name, lastName, email, personalAddress, phone, workingStartingDate, startingSalary)
-            VALUES (@employee_name, @lastName, @email,@personalAddress, @phone, @workingStartingDate, @startingSalary)
-            SET @prp_id = @@IDENTITY
+        INSERT INTO Employees(employee_id,employee_name, lastName, email, personalAddress, phone, workingStartingDate, startingSalary)
+            VALUES (@employee_id,@employee_name, @lastName, @email,@personalAddress, @phone, @workingStartingDate, @startingSalary)
+            --SET @prp_id = @@IDENTITY
+            SET @prp_id = @employee_id
             SET @prp_mensaje = 'The employee has been successfully added!'
     COMMIT
 	END TRY

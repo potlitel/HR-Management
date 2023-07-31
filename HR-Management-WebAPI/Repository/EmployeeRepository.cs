@@ -20,7 +20,7 @@ namespace HR_Management_WebAPI.Repository
         {
             _context = context;
         }
-        public async Task<CustomResponse> CreateEmployee(CreateEmployeeRequest employee)
+        public async Task<CustomResponse> CreateEmployee(Employee employee)
         {
             try
             {
@@ -28,6 +28,7 @@ namespace HR_Management_WebAPI.Repository
                 using (var connection = _context.CreateConnection())
                 {
                     var parameters = new DynamicParameters();
+                    parameters.Add("employee_id", employee.employee_id, DbType.Int32);
                     parameters.Add("employee_name", employee.employee_name.ToString(), DbType.String);
                     parameters.Add("lastName", employee.lastName.ToString(), DbType.String);
                     parameters.Add("email", employee.email.ToString(), DbType.String);
@@ -46,7 +47,7 @@ namespace HR_Management_WebAPI.Repository
 
                     var createdCompany = new Employee
                     {
-                        employee_id = (int)id,
+                        employee_id = employee.employee_id,
                         employee_name = employee.employee_name,
                         lastName = employee.lastName,
                         email = employee.email,
@@ -138,7 +139,7 @@ namespace HR_Management_WebAPI.Repository
             }
         }
 
-        public async Task<CustomResponse> UpdateEmployee(int employee_id, CreateEmployeeRequest employee)
+        public async Task<CustomResponse> UpdateEmployee(int employee_id, Employee employee)
         {
             try
             {
