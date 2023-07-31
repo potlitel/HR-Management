@@ -11,6 +11,7 @@
 */
 CREATE    PROCEDURE [dbo].[Usp_HR_AddRol]
     -- Add the parameters for the stored procedure here
+    @role_id INT,
 	@rol_name varchar(max),
     @prp_id INT output,
     @prp_mensaje varchar(250) output
@@ -18,9 +19,10 @@ AS
 BEGIN
     BEGIN TRANSACTION
         BEGIN TRY
-            INSERT INTO Roles(rol_name)
-                    VALUES (@rol_name)
-            SET @prp_id = @@IDENTITY
+            INSERT INTO Roles(role_id, rol_name)
+                    VALUES (@role_id, @rol_name)
+            --SET @prp_id = @@IDENTITY
+            SET @prp_id = @role_id
             SET @prp_mensaje = 'The role has been successfully added!'
             COMMIT TRANSACTION
 	    END TRY

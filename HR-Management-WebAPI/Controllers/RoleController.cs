@@ -44,10 +44,12 @@ namespace HR_Management_WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> CreateRol(CreateRequest role)
+        public async Task<IActionResult> CreateRol(Role role)
         {
             try
             {
+                if (await _rolesRepo.GetRoleById(role.role_id!) != null)
+                    throw new ApplicationException("Role with the identifier '" + role.role_id + "' already exists.");
                 if (await _rolesRepo.GetRoleByName(role.rol_name!) != null)
                     throw new ApplicationException("Role with the name '" + role.rol_name + "' already exists.");
                 CustomResponse model = await _rolesRepo.CreateRole(role);
@@ -64,7 +66,7 @@ namespace HR_Management_WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut("update/{role_id}")]
-        public async Task<IActionResult> UpdateRol(int role_id, CreateRequest role)
+        public async Task<IActionResult> UpdateRol(int role_id, Role role)
         {
             try
             {

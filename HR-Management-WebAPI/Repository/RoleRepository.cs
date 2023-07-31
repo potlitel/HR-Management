@@ -24,7 +24,7 @@ namespace HR_Management_WebAPI.Repository
             _context = context;
         }
 
-        public async Task<CustomResponse> CreateRole(CreateRequest role)
+        public async Task<CustomResponse> CreateRole(Role role)
         {
             try
             {
@@ -32,6 +32,7 @@ namespace HR_Management_WebAPI.Repository
                 using (var connection = _context.CreateConnection())
                 {
                     var parameters = new DynamicParameters();
+                    parameters.Add("role_id", role.role_id, DbType.Int32);
                     parameters.Add("rol_name", role.rol_name.ToString(), DbType.String);
                     parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
                     parameters.Add("prp_id", dbType: DbType.Int32, direction: ParameterDirection.Output);
@@ -125,7 +126,7 @@ namespace HR_Management_WebAPI.Repository
             }
         }
 
-        public async Task<CustomResponse> UpdateRole(int role_id, CreateRequest role)
+        public async Task<CustomResponse> UpdateRole(int role_id, Role role)
         {
             try
             {

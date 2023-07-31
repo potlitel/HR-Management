@@ -28,11 +28,11 @@ GO
 --﻿PRINT 'Inserting Application.People'
 --GO
 
-INSERT INTO dbo.Roles(rol_name) 
+INSERT INTO dbo.Roles(role_id, rol_name)
     VALUES 
-     ('Worker')
-    ,('Specialist')
-    ,('Manager')
+     (1, 'Worker')
+    ,(2, 'Specialist')
+    ,(3, 'Manager')
 
 DECLARE @workingStartingDate datetime2(7) = '20130101'
 INSERT INTO dbo.Employees(employee_name, lastName, email, personalAddress, phone, workingStartingDate, startingSalary) 
