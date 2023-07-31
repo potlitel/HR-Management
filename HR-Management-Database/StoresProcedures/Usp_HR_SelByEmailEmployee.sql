@@ -1,5 +1,5 @@
-﻿--IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'Usp_HR_SelByIdEmployee') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
---    DROP PROCEDURE Usp_HR_SelByIdEmployee;
+﻿--IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'Usp_HR_SelByEmailEmployee') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+--    DROP PROCEDURE Usp_HR_SelByEmailEmployee;
 --GO
 /*
 -- ===================================================================================== --
@@ -9,9 +9,9 @@
 --	Modified by  	: ...
 -- ===================================================================================== --
 */
-CREATE  PROCEDURE [dbo].[Usp_HR_SelByIdEmployee]
+CREATE  PROCEDURE [dbo].[Usp_HR_SelByEmailEmployee]
 	-- Add the parameters for the stored procedure here
-  	@employee_id INT,
+  	@employee_email varchar(250),
 	@prp_mensaje varchar(250) output
 AS
 BEGIN
@@ -19,7 +19,7 @@ BEGIN
 		SELECT Employees.employee_id, Employees.employee_name, Employees.lastName, 
 		Employees.email, Employees.personalAddress, Employees.phone, Employees.workingStartingDate, Employees.startingSalary
 		FROM dbo.Employees
-		WHERE Employees.employee_id = @employee_id
+		WHERE Employees.email = @employee_email
 	END TRY
 	BEGIN CATCH
 		set @prp_mensaje ='Could not get details of employee'				 

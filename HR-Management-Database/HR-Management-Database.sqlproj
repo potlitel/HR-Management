@@ -82,6 +82,7 @@
     <Build Include="StoresProcedures\Usp_HR_UpdEmployee.sql" />
     <Build Include="StoresProcedures\Usp_HR_UpdRol.sql" />
     <Build Include="StoresProcedures\Usp_HR_SelByNameRol.sql" />
+    <Build Include="StoresProcedures\Usp_HR_SelByEmailEmployee.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="HR-Management-Database.refactorlog" />

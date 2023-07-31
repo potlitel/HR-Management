@@ -98,6 +98,18 @@ namespace HR_Management_WebAPI.Repository
             }
         }
 
+        public async Task<Employee> GetEmployeeByEmail(string email)
+        {
+            var procedure = "Usp_HR_SelByEmailEmployee";
+            using (var connection = _context.CreateConnection())
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("employee_email", email.ToString(), DbType.String);
+                parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
+                return await connection.QuerySingleOrDefaultAsync<Employee>(procedure, parameters, null, commandType: CommandType.StoredProcedure);
+            }
+        }
+
         public async Task<Employee> GetEmployeeById(int employee_id)
         {
             var procedure = "Usp_HR_SelByIdEmployee";

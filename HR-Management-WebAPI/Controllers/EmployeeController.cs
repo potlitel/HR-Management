@@ -43,13 +43,13 @@ namespace HR_Management_WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> CreateEmployee(CreateEmployeeRequest role)
+        public async Task<IActionResult> CreateEmployee(CreateEmployeeRequest employee)
         {
             try
             {
-                //if (await _rolesRepo.GetRoleByName(role.rol_name!) != null)
-                //    throw new ApplicationException("Role with the name '" + role.rol_name + "' already exists.");
-                CustomResponse model = await _employeesRepo.CreateEmployee(role);
+                if (await _employeesRepo.GetEmployeeByEmail(employee.email!) != null)
+                    throw new ApplicationException("Employee with the email '" + employee.email + "' already exists.");
+                CustomResponse model = await _employeesRepo.CreateEmployee(employee);
                 return Ok(new { message = model.Message, data = model.Data });
             }
             catch (Exception ex)
