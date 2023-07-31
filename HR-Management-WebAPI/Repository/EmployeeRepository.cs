@@ -20,6 +20,36 @@ namespace HR_Management_WebAPI.Repository
         {
             _context = context;
         }
+
+        public async Task<CustomResponse> AddEmployeeSalaryIncrease(int employee_id, int pending_months)
+        {
+            try
+            {
+                var query = "Usp_HR_AddEmployeeSalaryIncrease";
+                using (var connection = _context.CreateConnection())
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("employee_id", employee_id, DbType.Int32);
+                    parameters.Add("pending_months", employee_id, DbType.Int32);
+                    parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
+
+                    await connection.ExecuteAsync(query, parameters, commandType: CommandType.StoredProcedure);
+
+                    var message = parameters.Get<string>("prp_mensaje");
+
+                    return (new CustomResponse
+                    {
+                        StatusCode = HttpStatusCode.OK,
+                        Message = message,
+                    });
+                }
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(exp.Message, exp);
+            }
+        }
+
         public async Task<CustomResponse> CreateEmployee(Employee employee)
         {
             try
@@ -128,6 +158,31 @@ namespace HR_Management_WebAPI.Repository
         public Task<Employee> GetEmployeeByName(string name)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<int> GetEmployeeLatestRevisionDate(int employee_id)
+        {
+            try
+            {
+                var query = "Usp_HR_SelEmployeeLatestRevisionDate";
+                using (var connection = _context.CreateConnection())
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("employee_id", employee_id, DbType.Int32);
+                    parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
+                    parameters.Add("@salary_review_proceeds", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                    await connection.ExecuteAsync(query, parameters, commandType: CommandType.StoredProcedure);
+
+                    var LatestRevisionDate = parameters.Get<Int32>("salary_review_proceeds");
+
+                    return LatestRevisionDate;
+                }
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(exp.Message, exp);
+            }
         }
 
         public async Task<List<EmployeeResponse>> GetEmployees()

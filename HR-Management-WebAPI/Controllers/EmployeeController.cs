@@ -109,5 +109,52 @@ namespace HR_Management_WebAPI.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        /// <summary>
+        /// Api Get method to calculate salary increase to an employee.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("salaryIncrease/{employee_id}")]
+        public async Task<IActionResult> SalaryIncreaseEmployee(int employee_id)
+        {
+            try
+            {
+                var roleFound = await _employeesRepo.GetEmployeeById(employee_id);
+                if (roleFound == null)
+                    return NotFound("No employee found matching the supplied identifier.");
+                var latestIncrease = await _employeesRepo.GetEmployeeLatestRevisionDate(employee_id);
+                if (latestIncrease < 3)
+                    throw new ApplicationException("The 3 months necessary for the salary increase for the worker with identifier '" + employee_id + "' have not elapsed, only '" + latestIncrease + "' months have elapsed since the last salary increase.");
+                CustomResponse model = await _employeesRepo.AddEmployeeSalaryIncrease(employee_id, latestIncrease);
+                return Ok(new { message = model.Message });
+            }
+            catch (Exception ex)
+            {
+                //log error
+                return StatusCode(500, ex.Message);
+            }
+        }
+        /// <summary>
+        /// Api Get method to list historical salaries to an employee.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("historicalSalaries/{employee_id}")]
+        public async Task<IActionResult> HistoricalSalariesEmployee(int employee_id)
+        {
+            try
+            {
+                var roleFound = await _employeesRepo.GetEmployeeById(employee_id);
+                if (roleFound == null)
+                    return NotFound("No employee found matching the supplied identifier.");
+                //CustomResponse model = await _employeesRepo.CreateEmployee(employee);
+                //return Ok(new { message = model.Message, data = model.Data });
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                //log error
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }
