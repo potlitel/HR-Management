@@ -48,3 +48,17 @@ INSERT INTO dbo.Employees(employee_id, employee_name, lastName, email, personalA
     ,(9,'Lula', 'B. Findlay', 'LulaBFindlay@armyspy.com', '12 Broadcast Drive Herndon, VA 22090', '703-975-8280', @workingStartingDate, '1875.25')
     ,(10,'Gilbert', 'L. Crouch', 'GilbertLCrouch@dayrep.com', '594 Sycamore Road The Dalles, OR 97958', '541-399-7296', @workingStartingDate, '875.25')
 
+INSERT INTO dbo.User_Roles(employee_id, role_id)
+    VALUES 
+     (1, 1)
+    ,(2, 1)
+    ,(3, 1)
+    ,(4, 1)
+    ,(5, 1)
+    ,(6, 1)
+    ,(7, 1)
+    ,(8, 1)
+    ,(8, 2)
+    ,(9, 1)
+    ,(9, 2)
+    ,(10, 3)
