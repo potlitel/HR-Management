@@ -20,9 +20,11 @@ BEGIN
     BEGIN TRY
         DECLARE @salaries_increase MONEY
         DECLARE @currentSalary MONEY
-        DECLARE @increases_period DATE
+        DECLARE @increases_period VARCHAR(MAX)
         DECLARE @increase_date DATE
         DECLARE @with_Role INT
+        DECLARE @employee VARCHAR(MAX)
+        SET @employee = (SELECT e.employee_name + ' ' + e.lastName FROM dbo.Employees e WHERE e.employee_id = @employee_id)
         --We select the role of the employee, in this case we use MAX, because an employee can have several roles and we want to keep the largest of these
         SET @with_Role = (SELECT MAX(ur.role_id) FROM dbo.User_Roles ur WHERE ur.employee_id = @employee_id)
         -- Get employee current salary
@@ -50,12 +52,12 @@ BEGIN
             ELSE
                 set @currentSalary = (@currentSalary + (@currentSalary * 12.0 / 100.0)) * (@pending_months / 3)
         END
-        SET @increases_period = GETDATE()
+        SET @increases_period = (SELECT CAST(year(getdate()) AS char(4)) + '-Q' + CAST(CEILING(CAST(month(getdate()) AS decimal(4,2)) / 3) AS char(1)))
         SET @increase_date = GETDATE()
 
         INSERT INTO dbo.HistoricalSalaries (employee_id, salaries_increases, increases_period, increases_date, with_role)
         VALUES (@employee_id, @currentSalary, @increases_period, @increase_date, @with_role)
-        SET @prp_mensaje = 'The latest revision date has been successfully calculated for employee %s!'
+        SET @prp_mensaje = (SELECT CONCAT ( 'The salary increase has been calculated correctly for the employee ', @employee , ' !' ))
     COMMIT
 	END TRY
 	BEGIN CATCH
