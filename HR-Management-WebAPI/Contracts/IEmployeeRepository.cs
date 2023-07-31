@@ -10,7 +10,7 @@ namespace HR_Management_WebAPI.Contracts
 {
     public interface IEmployeeRepository
     {
-        Task<List<Employee>> GetEmployees();
+        Task<List<EmployeeResponse>> GetEmployees();
         Task<Employee> GetEmployeeByName(string name);
         Task<Employee> GetEmployeeById(int employee_id);
         Task<Employee> GetEmployeeByEmail(string email);

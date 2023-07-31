@@ -130,14 +130,14 @@ namespace HR_Management_WebAPI.Repository
             throw new NotImplementedException();
         }
 
-        public async Task<List<Employee>> GetEmployees()
+        public async Task<List<EmployeeResponse>> GetEmployees()
         {
             var procedure = "Usp_HR_SelEmployee";
             using (var connection = _context.CreateConnection())
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
-                return (await connection.QueryAsync<Employee>(procedure, parameters, commandType: CommandType.StoredProcedure)).ToList();
+                return (await connection.QueryAsync<EmployeeResponse>(procedure, parameters, commandType: CommandType.StoredProcedure)).ToList();
             }
         }
 

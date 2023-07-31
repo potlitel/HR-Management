@@ -14,9 +14,17 @@ CREATE  PROCEDURE [dbo].[Usp_HR_SelEmployee]
 AS
 BEGIN
 	BEGIN TRY
-		SELECT Employees.employee_id, Employees.employee_name, Employees.lastName, 
-		RTRIM(Employees.email) as email, RTRIM(Employees.personalAddress) as personalAddress, Employees.phone, Employees.workingStartingDate, Employees.startingSalary
-		FROM dbo.Employees
+		SELECT e.employee_id, e.employee_name, e.lastName, 
+		RTRIM(e.email) as email, RTRIM(e.personalAddress) as personalAddress, e.phone, 
+		e.workingStartingDate, e.startingSalary,
+		LTRIM(RTRIM(STUFF((SELECT ', ' + r.rol_name 
+          FROM dbo.Roles r
+		  INNER JOIN dbo.User_Roles ur
+          on r.role_id = ur.role_id
+		  WHERE ur.employee_id = e.employee_id
+          ORDER BY r.rol_name 
+          FOR XML PATH('')), 1, 1, ''))) [Roles]
+		FROM dbo.Employees e
 	END TRY
 	BEGIN CATCH
 		set @prp_mensaje ='Could not get list of employees'				 
