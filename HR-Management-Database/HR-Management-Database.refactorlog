@@ -56,4 +56,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="rol_name" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="d1cfecb2-1f00-4c9b-97cf-3f5c5d78de32" ChangeDateTime="07/31/2023 15:01:55">
+    <Property Name="ElementName" Value="[dbo].[HistoricalSalaries].[with role]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[HistoricalSalaries]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="with_role" />
+  </Operation>
 </Operations>
