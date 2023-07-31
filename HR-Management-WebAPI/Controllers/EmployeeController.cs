@@ -146,9 +146,10 @@ namespace HR_Management_WebAPI.Controllers
                 var roleFound = await _employeesRepo.GetEmployeeById(employee_id);
                 if (roleFound == null)
                     return NotFound("No employee found matching the supplied identifier.");
-                //CustomResponse model = await _employeesRepo.CreateEmployee(employee);
-                //return Ok(new { message = model.Message, data = model.Data });
-                return Ok();
+                var historicalSalaries = await _employeesRepo.SelEmployeeHistoricalSalaries(employee_id);
+                if (historicalSalaries.Count == 0)
+                    throw new ApplicationException("There are no historical salary records for the employee supplied");
+                return Ok(historicalSalaries);
             }
             catch (Exception ex)
             {

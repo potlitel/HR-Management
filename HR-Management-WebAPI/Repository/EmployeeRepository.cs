@@ -196,6 +196,18 @@ namespace HR_Management_WebAPI.Repository
             }
         }
 
+        public async Task<List<HistoricalSalaries>> SelEmployeeHistoricalSalaries(int employee_id)
+        {
+            var procedure = "Usp_HR_SelHistoricalSalaries";
+            using (var connection = _context.CreateConnection())
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("employee_id", employee_id, DbType.Int32);
+                parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
+                return (await connection.QueryAsync<HistoricalSalaries>(procedure, parameters, commandType: CommandType.StoredProcedure)).ToList();
+            }
+        }
+
         public async Task<CustomResponse> UpdateEmployee(int employee_id, Employee employee)
         {
             try
