@@ -138,9 +138,53 @@ namespace HR_Management_WebAPI.Repository
             }
         }
 
-        public Task<CustomResponse> UpdateEmployee(int role_id, CreateEmployeeRequest role)
+        public async Task<CustomResponse> UpdateEmployee(int employee_id, CreateEmployeeRequest employee)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var query = "Usp_HR_UpdEmployee";
+                using (var connection = _context.CreateConnection())
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("employee_id", employee_id, DbType.Int32);
+                    parameters.Add("employee_name", employee.employee_name.ToString(), DbType.String);
+                    parameters.Add("lastName", employee.lastName.ToString(), DbType.String);
+                    parameters.Add("email", employee.email.ToString(), DbType.String);
+                    parameters.Add("personalAddress", employee.personalAddress.ToString(), DbType.String);
+                    parameters.Add("phone", employee.phone.ToString(), DbType.String);
+                    parameters.Add("workingStartingDate", employee.workingStartingDate.ToString(), DbType.String);
+                    parameters.Add("startingSalary", employee.startingSalary.ToString(), DbType.String);
+                    parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
+
+                    await connection.ExecuteAsync(query, parameters, commandType: CommandType.StoredProcedure);
+
+                    var message = parameters.Get<string>("prp_mensaje");
+
+
+                    var createdCompany = new Employee
+                    {
+                        employee_id = employee_id,
+                        employee_name = employee.employee_name,
+                        lastName = employee.lastName,
+                        email = employee.email,
+                        personalAddress = employee.personalAddress,
+                        phone = employee.phone,
+                        workingStartingDate = employee.workingStartingDate,
+                        startingSalary = employee.startingSalary,
+                    };
+
+                    return new CustomResponse
+                    {
+                        StatusCode = HttpStatusCode.OK,
+                        Message = message,
+                        Data = createdCompany
+                    };
+                }
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(exp.Message, exp);
+            }
         }
     }
 }

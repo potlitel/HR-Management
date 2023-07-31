@@ -59,6 +59,32 @@ namespace HR_Management_WebAPI.Controllers
             }
         }
         /// <summary>
+        /// Api Get method to update an existing employee.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut("update/{employee_id}")]
+        public async Task<IActionResult> UpdateEmployee(int employee_id, CreateEmployeeRequest employee)
+        {
+            try
+            {
+                var employeeFound = await _employeesRepo.GetEmployeeById(employee_id);
+                if (employeeFound == null)
+                    throw new ApplicationException("No employee found matching the supplied identifier");
+                var emailChanged = (employeeFound.email.Trim().ToString() != employee.email.Trim().ToString());
+                //if (emailChanged && await _employeesRepo.GetEmployeeByEmail(employee.email!) != null)
+                if (emailChanged)
+                    throw new ApplicationException("Employee with the email '" + employee.email + "' already exists.");
+
+                CustomResponse model = await _employeesRepo.UpdateEmployee(employee_id, employee);
+                return Ok(new { message = model.Message, data = model.Data });
+            }
+            catch (Exception ex)
+            {
+                //log error
+                return StatusCode(500, ex.Message);
+            }
+        }
+        /// <summary>
         /// Api Get method to delete an existing employee.
         /// </summary>
         /// <returns></returns>
