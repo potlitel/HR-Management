@@ -35,6 +35,7 @@ namespace HR_Management_WebAPI
             services.AddSingleton<DapperContext>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddCors();
             services.AddControllers();
             AddSwagger(services);
         }
@@ -85,6 +86,13 @@ namespace HR_Management_WebAPI
             });
 
             app.UseRouting();
+
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials()); // allow credentials
 
             app.UseAuthorization();
 
