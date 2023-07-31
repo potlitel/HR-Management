@@ -28,6 +28,9 @@ namespace HR_Management_WebAPI.Entities
         [Required]
         public float startingSalary { get; set; }
 
-        public List<Role> Roles { get; set; } = new List<Role>();
+        //public List<Role> Roles { get; set; } = new List<Role>();
+        [Required]
+        //[RegularExpression(@"^[1-3](,[1-3])*$")]
+        public List<int> Roles { get; set; } = new List<int>();
     }
 }

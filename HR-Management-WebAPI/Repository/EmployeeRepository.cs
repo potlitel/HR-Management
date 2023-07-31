@@ -25,6 +25,7 @@ namespace HR_Management_WebAPI.Repository
             try
             {
                 var query = "Usp_HR_AddEmployee";
+                var roles = String.Join(",", employee.Roles);
                 using (var connection = _context.CreateConnection())
                 {
                     var parameters = new DynamicParameters();
@@ -36,6 +37,7 @@ namespace HR_Management_WebAPI.Repository
                     parameters.Add("phone", employee.phone.ToString(), DbType.String);
                     parameters.Add("workingStartingDate", employee.workingStartingDate.ToString(), DbType.String);
                     parameters.Add("startingSalary", employee.startingSalary.ToString(), DbType.String);
+                    parameters.Add("roles", roles, DbType.String);
                     parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
                     parameters.Add("prp_id", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
@@ -144,6 +146,7 @@ namespace HR_Management_WebAPI.Repository
             try
             {
                 var query = "Usp_HR_UpdEmployee";
+                var roles = String.Join(",", employee.Roles);
                 using (var connection = _context.CreateConnection())
                 {
                     var parameters = new DynamicParameters();
@@ -155,6 +158,7 @@ namespace HR_Management_WebAPI.Repository
                     parameters.Add("phone", employee.phone.ToString(), DbType.String);
                     parameters.Add("workingStartingDate", employee.workingStartingDate.ToString(), DbType.String);
                     parameters.Add("startingSalary", employee.startingSalary.ToString(), DbType.String);
+                    parameters.Add("roles", roles, DbType.String);
                     parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
 
                     await connection.ExecuteAsync(query, parameters, commandType: CommandType.StoredProcedure);

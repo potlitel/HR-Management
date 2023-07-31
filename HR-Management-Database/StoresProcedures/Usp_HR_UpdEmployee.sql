@@ -19,6 +19,7 @@ CREATE    PROCEDURE [dbo].[Usp_HR_UpdEmployee]
 	@phone CHAR(7),
     @workingStartingDate datetime,
     @startingSalary money,
+    @roles VARCHAR(MAX), ---roles a asignar a este usuario
     @prp_mensaje varchar(250) output
 AS
 BEGIN
@@ -33,7 +34,24 @@ BEGIN
             workingStartingDate=@workingStartingDate,
             startingSalary=@startingSalary
 		WHERE employee_id=@employee_id
-            SET @prp_mensaje = 'The employee has been successfully update!'
+
+        DECLARE @rol INT
+        DECLARE @prp_id INT
+        DECLARE perfiles_cursors CURSOR FOR 
+		SELECT splitdata FROM dbo.fnSplitString(@roles,',')
+        DELETE FROM dbo.User_Roles where employee_id = @employee_id
+        OPEN perfiles_cursors
+        FETCH NEXT FROM perfiles_cursors INTO @rol
+        WHILE @@FETCH_STATUS = 0
+	     BEGIN
+           SELECT @rol
+           EXEC [dbo].[Usp_HR_AddUserRoles] @employee_id, @rol, @prp_id, @prp_mensaje
+           FETCH NEXT FROM perfiles_cursors INTO @rol
+         END
+        CLOSE perfiles_cursors;
+        DEALLOCATE perfiles_cursors;
+
+        SET @prp_mensaje = 'The employee has been successfully update!'
     COMMIT
 	END TRY
 	BEGIN CATCH

@@ -19,6 +19,7 @@ CREATE    PROCEDURE [dbo].[Usp_HR_AddEmployee]
 	@phone CHAR(7),
     @workingStartingDate datetime,
     @startingSalary money,
+    @roles VARCHAR(MAX), ---roles a asignar a este usuario
     @prp_id INT output,
     @prp_mensaje varchar(250) output
 AS
@@ -27,6 +28,24 @@ BEGIN
     BEGIN TRY
         INSERT INTO Employees(employee_id,employee_name, lastName, email, personalAddress, phone, workingStartingDate, startingSalary)
             VALUES (@employee_id,@employee_name, @lastName, @email,@personalAddress, @phone, @workingStartingDate, @startingSalary)
+            
+            DECLARE @rol INT
+            DECLARE perfiles_cursors CURSOR FOR 
+		        SELECT splitdata
+            FROM dbo.fnSplitString(@roles,',')
+
+            OPEN perfiles_cursors
+            FETCH NEXT FROM perfiles_cursors INTO @rol
+            WHILE @@FETCH_STATUS = 0
+	        BEGIN
+                SELECT @rol
+                EXEC [dbo].[Usp_HR_AddUserRoles] @employee_id, @rol, @prp_id, @prp_mensaje
+                FETCH NEXT FROM perfiles_cursors INTO @rol
+            END
+            CLOSE perfiles_cursors;
+            DEALLOCATE perfiles_cursors;
+            
+            
             --SET @prp_id = @@IDENTITY
             SET @prp_id = @employee_id
             SET @prp_mensaje = 'The employee has been successfully added!'
