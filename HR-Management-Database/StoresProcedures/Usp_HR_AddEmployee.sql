@@ -16,7 +16,7 @@ CREATE    PROCEDURE [dbo].[Usp_HR_AddEmployee]
 	@lastName varchar(max),
 	@email varchar(max),
 	@personalAddress varchar(max),
-	@phone CHAR(7),
+	@phone CHAR(12),
     @workingStartingDate datetime,
     @startingSalary money,
     @roles VARCHAR(MAX), ---roles a asignar a este usuario
