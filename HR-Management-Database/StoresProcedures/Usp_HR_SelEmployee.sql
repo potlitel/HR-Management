@@ -16,7 +16,7 @@ BEGIN
 	BEGIN TRY
 		SELECT e.employee_id, e.employee_name, e.lastName, 
 		RTRIM(e.email) as email, RTRIM(e.personalAddress) as personalAddress, e.phone, 
-		e.workingStartingDate, e.startingSalary,
+		e.workingStartingDate, e.startingSalary, e.currentSalary,
 		LTRIM(RTRIM(STUFF((SELECT ', ' + r.rol_name 
           FROM dbo.Roles r
 		  INNER JOIN dbo.User_Roles ur

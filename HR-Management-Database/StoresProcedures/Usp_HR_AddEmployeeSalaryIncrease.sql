@@ -28,7 +28,12 @@ BEGIN
         --We select the role of the employee, in this case we use MAX, because an employee can have several roles and we want to keep the largest of these
         SET @with_Role = (SELECT MAX(ur.role_id) FROM dbo.User_Roles ur WHERE ur.employee_id = @employee_id)
         -- Get employee current salary
-        SET @currentSalary = (SELECT e.startingSalary FROM dbo.Employees e WHERE e.employee_id = @employee_id)
+        --SET @currentSalary = (SELECT e.currentSalary FROM dbo.Employees e WHERE e.employee_id = @employee_id)
+        SET @currentSalary = (SELECT COUNT(Employees.currentSalary) FROM Employees WHERE Employees.employee_id = @employee_id)
+        IF( @currentSalary = 0)
+            SET @currentSalary = (SELECT e.startingSalary FROM dbo.Employees e WHERE e.employee_id = @employee_id)
+        ELSE
+            SET @currentSalary = (SELECT e.currentSalary FROM dbo.Employees e WHERE e.employee_id = @employee_id)
         --We increase the salary by a percentage that depends on the role of the employee
         IF(@with_Role = 1)
         BEGIN

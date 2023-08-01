@@ -31,6 +31,8 @@ namespace HR_Management_WebAPI.Models.Employees
         [Required]
         public float startingSalary { get; set; }
         [Required]
+        public float currentSalary { get; set; }
+        [Required]
         public string Roles { get; set; }
     }
 }
