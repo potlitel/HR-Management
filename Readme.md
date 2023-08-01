@@ -30,27 +30,25 @@ HR-Management is a simple sample web API project that simulates a HR Management 
 
    If your version is not 3.1, [download the .NET Core 3.1 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/3.1) and install it on your machine.
 
-2. Install Visual Studio Code editor (also know as VSCode).
+2. Have Visual Studio 2019 installed.
 
-3. Once Visual Studio Code is open, install the REST Client extension.
-
-4. Finally, install the C# extension to get IntelliSense features in VSCode.
+3. Have an instance of MSSQLSERVER installed and running..
 
 ## Installation
 
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
+This section provide a step-by-step description of how to get the development environment running.
 
-1. Clone the repo
+1. Clone the repo with the following command.
    ```sh
    git clone https://github.com/potlitel/HR-Management.git
    ```
-2. Install NPM packages
+2. We are located inside the newly cloned repo folder.
    ```sh
-   npm install
+   cd HR-Management
    ```
-3. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
+3. Execute the following command
+   ```sh
+   dotnet restore
    ```
 
 ## Usage

@@ -119,12 +119,14 @@ namespace HR_Management_WebAPI.Controllers
         {
             try
             {
-                var roleFound = await _employeesRepo.GetEmployeeById(employee_id);
-                if (roleFound == null)
+                var employeeFound = await _employeesRepo.GetEmployeeById(employee_id);
+                if (employeeFound == null)
                     return NotFound("No employee found matching the supplied identifier.");
                 var latestIncrease = await _employeesRepo.GetEmployeeLatestRevisionDate(employee_id);
-                if (latestIncrease < 3)
-                    throw new ApplicationException("The 3 months necessary for the salary increase for the worker with identifier '" + employee_id + "' have not elapsed, only '" + latestIncrease + "' months have elapsed since the last salary increase.");
+                if (latestIncrease < 3 && latestIncrease > 0)
+                    throw new ApplicationException("The 3 months necessary for the salary increase for the worker with identifier '" + employeeFound.employee_name + " " + employeeFound.lastName + "' have not elapsed, only '" + latestIncrease + "' months have elapsed since the last salary increase.");
+                if (latestIncrease == 0)
+                    throw new ApplicationException("The 3 months necessary for the salary increase for the worker with identifier '" + employeeFound.employee_name + " " + employeeFound.lastName + "' have not elapsed, not even a month has passed since the last salary review.");
                 CustomResponse model = await _employeesRepo.AddEmployeeSalaryIncrease(employee_id, latestIncrease);
                 return Ok(new { message = model.Message });
             }
