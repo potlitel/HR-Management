@@ -18,8 +18,18 @@ AS
 BEGIN
     BEGIN TRANSACTION
     BEGIN TRY
-        SET @salary_review_proceeds = (SELECT DATEDIFF(MONTH,e.workingStartingDate,GETDATE()) AS LatestRevisionDate FROM dbo.Employees e WHERE e.employee_id = @employee_id)
-        SET @salary_review_proceeds = (SELECT ABS(@salary_review_proceeds))
+        DECLARE @currentSalary MONEY
+        SET @currentSalary = (SELECT COUNT(Employees.currentSalary) FROM Employees WHERE Employees.employee_id = @employee_id)
+        IF( @currentSalary = 0)
+            BEGIN
+                SET @salary_review_proceeds = (SELECT DATEDIFF(MONTH,e.workingStartingDate,GETDATE()) AS LatestRevisionDate FROM dbo.Employees e WHERE e.employee_id = @employee_id)
+                SET @salary_review_proceeds = (SELECT ABS(@salary_review_proceeds))
+            END
+        ELSE
+            BEGIN
+                SET @salary_review_proceeds = (SELECT DATEDIFF(MONTH,e.increases_date,GETDATE()) AS LatestRevisionDate FROM dbo.HistoricalSalaries e WHERE e.employee_id = @employee_id)
+                SET @salary_review_proceeds = (SELECT ABS(@salary_review_proceeds))
+            END
         SET @prp_mensaje = 'The latest revision date has been successfully calculated for employee %s!'
     COMMIT
 	END TRY
