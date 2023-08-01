@@ -15,10 +15,11 @@ namespace HR_Management_WebAPI.Entities
         public int employee_id { get; set; }
         [Required]
         [MinLength(4)]
-        [DefaultValue("Alain Jorge Acuña")]
+        [DefaultValue("Alain")]
         public string employee_name { get; set; }
         [Required]
         [MinLength(4)]
+        [DefaultValue("Jorge Acuña")]
         public string lastName { get; set; }
         [Required]
         [EmailAddress(ErrorMessage = "Not a valid email")]
@@ -29,6 +30,7 @@ namespace HR_Management_WebAPI.Entities
         public string personalAddress { get; set; }
         [Required]
         [Phone]
+        [MinLength(12)]
         [DefaultValue("012-345-6789")]
         public string phone { get; set; }
         [Required]
@@ -41,6 +43,7 @@ namespace HR_Management_WebAPI.Entities
         [Required]
         [DefaultValue("[1]")]
         //[RegularExpression(@"^[1-3](,[1-3])*$")]
+        //[RegularExpression(@"^(?:\d+|\d{1,3}(?:,\d{3})+)$")]
         //[RegularExpression(@"^(?:\d+|\d{1,3}(?:,\d{3})+)$")]
         public List<int> Roles { get; set; } = new List<int>();
     }
