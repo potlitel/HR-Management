@@ -30,7 +30,7 @@ namespace HR_Management_WebAPI.Repository
                 {
                     var parameters = new DynamicParameters();
                     parameters.Add("employee_id", employee_id, DbType.Int32);
-                    parameters.Add("pending_months", employee_id, DbType.Int32);
+                    parameters.Add("pending_months", pending_months, DbType.Int32);
                     parameters.Add("prp_mensaje", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
 
                     await connection.ExecuteAsync(query, parameters, commandType: CommandType.StoredProcedure);

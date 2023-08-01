@@ -8,6 +8,7 @@
     [phone] CHAR(12) NULL, 
     [workingStartingDate] DATETIME NOT NULL, 
     [startingSalary] MONEY NULL, 
+    [currentSalary] MONEY NULL, 
     --CONSTRAINT [CK_Employees_Email] CHECK (email like '%_@__%.__%' AND email NOT LIKE '@%' AND email NOT LIKE '%@%@%'), 
     CONSTRAINT [CK_Employees_Email] CHECK (email LIKE '%_@__%.__%'), 
     CONSTRAINT [CK_Employees_UniqueEmail] UNIQUE (email)

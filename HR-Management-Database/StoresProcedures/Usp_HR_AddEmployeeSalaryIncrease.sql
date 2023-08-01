@@ -32,25 +32,53 @@ BEGIN
         --We increase the salary by a percentage that depends on the role of the employee
         IF(@with_Role = 1)
         BEGIN
-            IF (@pending_months / 3) != 0
-                set @currentSalary = @currentSalary + (@currentSalary * 5.0 / 100.0)
+            IF (@pending_months / 3) = 0
+                SET @currentSalary = @currentSalary + (@currentSalary * 5/ 100.0)
             ELSE
-                set @currentSalary = (@currentSalary + (@currentSalary * 5.0 / 100.0)) * (@pending_months / 3)
+                SET @pending_months = (SELECT CAST(10 AS INT)/3)
+                --SET @currentSalary = (@currentSalary + (@currentSalary * 5.0 / 100.0)) * (@pending_months / 3)
+                DECLARE @cnt INT = 0;
+                WHILE @cnt < @pending_months
+                BEGIN
+                   SET @currentSalary = (@currentSalary + (@currentSalary * 5 / 100.0)) * 1
+                   UPDATE dbo.Employees SET currentSalary = @currentSalary WHERE employee_id = @employee_id
+                   SET @currentSalary = (SELECT e.currentSalary FROM dbo.Employees e WHERE e.employee_id = @employee_id)
+                   SET @cnt = @cnt + 1;
+                END;
         END
         ELSE
         IF(@with_Role = 2)
         BEGIN
-            IF (@pending_months / 3) != 0
-                set @currentSalary = @currentSalary + (@currentSalary * 8.0 / 100.0)
+            IF (@pending_months / 3) = 0
+                SET @currentSalary = @currentSalary + (@currentSalary * 8 / 100.0)
             ELSE
-                set @currentSalary = (@currentSalary + (@currentSalary * 8.0 / 100.0)) * (@pending_months / 3)
+                SET @pending_months = (SELECT CAST(10 AS INT)/3)
+                --SET @currentSalary = (@currentSalary + (@currentSalary * 8.0 / 100.0)) * (@pending_months / 3)
+                DECLARE @cnt1 INT = 0;
+                WHILE @cnt1 < @pending_months
+                BEGIN
+                   SET @currentSalary = (@currentSalary + (@currentSalary * 8.0 / 100.0)) * 1
+                   UPDATE dbo.Employees SET currentSalary = @currentSalary WHERE employee_id = @employee_id
+                   SET @currentSalary = (SELECT e.currentSalary FROM dbo.Employees e WHERE e.employee_id = @employee_id)
+                   SET @cnt1 = @cnt1 + 1;
+                END;
         END
         ELSE
         BEGIN
-            IF (@pending_months / 3) != 0
-                set @currentSalary = @currentSalary + (@currentSalary * 12.0 / 100.0)
+            IF (@pending_months / 3) = 0
+                SET @currentSalary = @currentSalary + (@currentSalary * 12.0 / 100.0)
             ELSE
-                set @currentSalary = (@currentSalary + (@currentSalary * 12.0 / 100.0)) * (@pending_months / 3)
+                SET @pending_months = (SELECT CAST(10 AS INT)/3)
+                --SET @currentSalary = (@currentSalary + (@currentSalary * 12.0 / 100.0)) * (@pending_months / 3)
+                DECLARE @cnt2 INT = 0;
+                WHILE @cnt2 < @pending_months
+                BEGIN
+                   --Obtenemos el salario actual
+                   SET @currentSalary = (@currentSalary + (@currentSalary * 12.0 / 100.0)) * 1
+                   UPDATE dbo.Employees SET currentSalary = @currentSalary WHERE employee_id = @employee_id
+                   SET @currentSalary = (SELECT e.currentSalary FROM dbo.Employees e WHERE e.employee_id = @employee_id)
+                   SET @cnt2 = @cnt2 + 1;
+                END;
         END
         SET @increases_period = (SELECT CAST(year(getdate()) AS char(4)) + '-Q' + CAST(CEILING(CAST(month(getdate()) AS decimal(4,2)) / 3) AS char(1)))
         SET @increase_date = GETDATE()
