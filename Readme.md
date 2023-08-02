@@ -16,9 +16,6 @@ HR-Management is a simple sample web API project that simulates a HR Management 
 
 - [Prerequisites](#Prerequisites)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Credits](#credits)
-- [License](#license)
 
 ### Prerequisites
 
