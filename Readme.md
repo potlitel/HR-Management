@@ -32,7 +32,7 @@ HR-Management is a simple sample web API project that simulates a HR Management 
 
 2. Have Visual Studio 2019 installed.
 
-3. Have an instance of MSSQLSERVER installed and running..
+3. Have an instance of MSSQLSERVER installed and running.
 
 ## Installation
 
@@ -42,7 +42,7 @@ This section provide a step-by-step description of how to get the development en
    ```sh
    git clone https://github.com/potlitel/HR-Management.git
    ```
-2. We are located inside the newly cloned repo folder.
+2. Position yourself inside the newly cloned repo folder.
    ```sh
    cd HR-Management
    ```
@@ -50,13 +50,12 @@ This section provide a step-by-step description of how to get the development en
    ```sh
    dotnet restore
    ```
+4. Open the project solution file (HR-Management.sln) using Visual Studio.
 
-## Usage
+5. Right click on the 'HR-Management-Database' Database project and click on the 'Publish...' option. Remember to modify the connection string (appsettings.json) according to your environment. Make sure that the output of this command is similar to the following:
 
-Provide instructions and examples for use. Include screenshots as needed.
+   ```sh
+   Publish completed successfully
+   ```
 
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
-
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
+6. Run the project 'HR-Management-WebAPI' and voila, enjoy it.
