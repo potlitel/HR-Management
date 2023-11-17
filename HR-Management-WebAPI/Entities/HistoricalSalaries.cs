@@ -1,4 +1,4 @@
-﻿namespace HR_Management_WebAPI.Models.Employees
+﻿namespace HR_Management_WebAPI.Entities
 {
     public class HistoricalSalaries
     {
