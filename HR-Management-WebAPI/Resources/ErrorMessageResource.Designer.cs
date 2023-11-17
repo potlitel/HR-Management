@@ -79,7 +79,16 @@ namespace HR_Management_WebAPI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} is required..
+        ///   Looks up a localized string similar to Minimum length of {0} is &apos;{1}&apos; characters..
+        /// </summary>
+        public static string MinLengthError {
+            get {
+                return ResourceManager.GetString("MinLengthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} is a required field..
         /// </summary>
         public static string RequiredError {
             get {

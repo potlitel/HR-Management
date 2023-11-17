@@ -1,22 +1,12 @@
-using HR_Management_WebAPI.Context;
-using HR_Management_WebAPI.Contracts;
-using HR_Management_WebAPI.Helpers;
+using HR_Management_WebAPI.Infrastructure.Swagger;
 using HR_Management_WebAPI.Repository;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace HR_Management_WebAPI
 {
@@ -36,7 +26,16 @@ namespace HR_Management_WebAPI
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddCors();
-            services.AddControllers();
+            services.AddControllers().AddDataAnnotationsLocalization();
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            var supportedCultures = new List<CultureInfo> { new CultureInfo("en"), new CultureInfo("es") };
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.DefaultRequestCulture = new RequestCulture("es");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
             AddSwagger(services);
         }
 
@@ -45,7 +44,7 @@ namespace HR_Management_WebAPI
             services.AddSwaggerGen(options =>
             {
                 var groupName = "v1";
-
+                options.OperationFilter<SwaggerLanguageHeader>();
                 options.SwaggerDoc(groupName, new OpenApiInfo
                 {
                     Title = $"HR-Management {groupName}",
@@ -76,6 +75,8 @@ namespace HR_Management_WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseRequestLocalization();
 
             app.UseHttpsRedirection();
 

@@ -118,25 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DummyIsForbidenError" xml:space="preserve">
-    <value>{0} cannot contains dummy word.</value>
+    <value>{0} no puede contener palabra dummy.</value>
   </data>
   <data name="MaxLengthError" xml:space="preserve">
-    <value>Maximum length of {0} is '{1}' characters.</value>
+    <value>La longitud máxima de {0} es de '{1}' caracteres.</value>
   </data>
   <data name="MinLengthError" xml:space="preserve">
-    <value>Minimum length of {0} is '{1}' characters.</value>
+    <value>La longitud mínima {0} es de '{1}' caracteres.</value>
   </data>
   <data name="RequiredError" xml:space="preserve">
-    <value>{0} is a required field.</value>
+    <value>{0} es un campo requerido.</value>
   </data>
   <data name="RequiredSelectError" xml:space="preserve">
-    <value>Please select {0}.</value>
+    <value>Por favor seleccione {0}.</value>
   </data>
   <data name="String" xml:space="preserve">
     <value>InvalidEmailError</value>
     <comment>Email format is not valid.</comment>
   </data>
   <data name="StringLengthError" xml:space="preserve">
-    <value>The minimum length of '{0}' is {2} characters and maximum length is {1} characters.</value>
+    <value>La longitud mínima '{0}' es de {2} caracteres la longitud máxima es de {1} caracteres.</value>
   </data>
 </root>

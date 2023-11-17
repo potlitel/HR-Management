@@ -86,5 +86,23 @@ namespace HR_Management_WebAPI.Resources {
                 return ResourceManager.GetString("LastName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rol Id.
+        /// </summary>
+        public static string Rol_Id {
+            get {
+                return ResourceManager.GetString("Rol_Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rol Name.
+        /// </summary>
+        public static string Rol_Name {
+            get {
+                return ResourceManager.GetString("Rol_Name", resourceCulture);
+            }
+        }
     }
 }

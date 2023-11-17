@@ -126,4 +126,10 @@
   <data name="LastName" xml:space="preserve">
     <value>Last name</value>
   </data>
+  <data name="Rol_Id" xml:space="preserve">
+    <value>Rol Id</value>
+  </data>
+  <data name="Rol_Name" xml:space="preserve">
+    <value>Rol Name</value>
+  </data>
 </root>
