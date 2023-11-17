@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-
-namespace HR_Management_WebAPI.Helpers
+﻿namespace HR_Management_WebAPI.Helpers
 {
     public class CustomResponse
     {

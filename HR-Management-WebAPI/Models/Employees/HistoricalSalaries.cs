@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace HR_Management_WebAPI.Models.Employees
+﻿namespace HR_Management_WebAPI.Models.Employees
 {
     public class HistoricalSalaries
     {
@@ -14,6 +9,5 @@ namespace HR_Management_WebAPI.Models.Employees
         public string increases_date { get; set; }
         public string increases_period { get; set; }
         public string with_rol { get; set; }
-
     }
 }

@@ -1,19 +1,4 @@
-﻿using Dapper;
-using HR_Management_WebAPI.Context;
-using HR_Management_WebAPI.Contracts;
-using HR_Management_WebAPI.Entities;
-using HR_Management_WebAPI.Helpers;
-using HR_Management_WebAPI.Models.Roles;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-
-namespace HR_Management_WebAPI.Repository
+﻿namespace HR_Management_WebAPI.Repository
 {
     public class RoleRepository : IRoleRepository
     {
@@ -41,7 +26,6 @@ namespace HR_Management_WebAPI.Repository
 
                     var message = parameters.Get<string>("prp_mensaje");
                     var id = parameters.Get<int?>("prp_id");
-
 
                     var createdCompany = new Role
                     {
@@ -141,7 +125,6 @@ namespace HR_Management_WebAPI.Repository
                     await connection.ExecuteAsync(query, parameters, commandType: CommandType.StoredProcedure);
 
                     var message = parameters.Get<string>("prp_mensaje");
-
 
                     var createdCompany = new Role
                     {

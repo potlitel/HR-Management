@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace HR_Management_WebAPI.Helpers
+﻿namespace HR_Management_WebAPI.Helpers
 {
     public static class NamesGenerator
     {
@@ -30,8 +25,6 @@ namespace HR_Management_WebAPI.Helpers
             }
 
             return Name;
-
-
         }
     }
 }

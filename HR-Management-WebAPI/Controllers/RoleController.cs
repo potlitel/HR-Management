@@ -1,14 +1,4 @@
-﻿using HR_Management_WebAPI.Contracts;
-using HR_Management_WebAPI.Entities;
-using HR_Management_WebAPI.Helpers;
-using HR_Management_WebAPI.Models.Roles;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace HR_Management_WebAPI.Controllers
+﻿namespace HR_Management_WebAPI.Controllers
 {
     [Route("api/roles")]
     [ApiController]
@@ -39,6 +29,7 @@ namespace HR_Management_WebAPI.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
         /// <summary>
         /// Api Get method to create a new role.
         /// </summary>
@@ -61,6 +52,7 @@ namespace HR_Management_WebAPI.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
         /// <summary>
         /// Api Get method to update an existing role.
         /// </summary>
@@ -82,6 +74,7 @@ namespace HR_Management_WebAPI.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
         /// <summary>
         /// Api Get method to delete an existing role.
         /// </summary>
