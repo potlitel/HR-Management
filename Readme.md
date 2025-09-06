@@ -1,12 +1,12 @@
 # 👥HR-Management
 
-## Description
+## 📖Description
 
 HR-Management is a simple sample web API project that simulates a HR Management System Application.
 
 <img src="images/Resume.gif" alt="Logo" width="840" height="480">
 
-### Built With
+### 🏗️Built With
 
 - [.NET Core 3.1](https://dotnet.microsoft.com/en-us/download/dotnet/3.1)
 - [Dapper](https://www.nuget.org/packages/Dapper/)
@@ -14,10 +14,10 @@ HR-Management is a simple sample web API project that simulates a HR Management 
 
 ## Table of Contents:
 
-- [Prerequisites](#Prerequisites)
-- [Installation](#installation)
+- 📋 [Prerequisites](#Prerequisites)
+- 🚀 [Installation](#installation)
 
-### Prerequisites
+### 📋 Prerequisites
 
 1. First you need to check if you have installed the .NET Core 3.1 SDK with the following .NET CLI (Command-Line Interface) command:
 
@@ -31,7 +31,7 @@ HR-Management is a simple sample web API project that simulates a HR Management 
 
 3. Have an instance of MSSQLSERVER installed and running.
 
-## Installation
+## 🚀 Installation
 
 This section provide a step-by-step description of how to get the development environment running.
 
@@ -56,4 +56,5 @@ This section provide a step-by-step description of how to get the development en
    ```
 
 6. Run the project 'HR-Management-WebAPI' and voila, enjoy it.
+
 
