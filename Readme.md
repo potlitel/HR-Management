@@ -1,4 +1,4 @@
-# HR-Management
+# 👥HR-Management
 
 ## Description
 
@@ -56,3 +56,4 @@ This section provide a step-by-step description of how to get the development en
    ```
 
 6. Run the project 'HR-Management-WebAPI' and voila, enjoy it.
+
